@@ -48,6 +48,7 @@ GEM
     builder (3.2.4)
     byebug (11.1.1)
     concurrent-ruby (1.1.6)
+    cpf_cnpj (0.5.0)
     crass (1.0.6)
     erubi (1.9.0)
     ffi (1.12.2)
@@ -134,6 +135,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
+  cpf_cnpj
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
