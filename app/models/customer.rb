@@ -1,11 +1,25 @@
 class Customer < ApplicationRecord
+  has_secure_password
+  validates :email, presence: true, uniqueness: true
+  validates :national_registry_code, presence: true, uniqueness: true
+
   enum registry_type: {
     CPF: 0,
     CNPJ: 1,
   }
 
   validate :validate_national_registry_code
- 
+
+  def self.from_token_request request
+    national_registry_code = request.params["auth"] && request.params["auth"]["national_registry_code"]
+    customer = self.find_by national_registry_code: national_registry_code
+    puts "************************"
+    puts request.params
+    puts customer.inspect
+    puts "==================="
+    customer
+  end
+
   def validate_national_registry_code
     if self.registry_type == 0 || self.registry_type === 'CPF' 
       check_cpf 

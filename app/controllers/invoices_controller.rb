@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :update, :destroy]
-
+  before_action :authenticate_customer
   # GET /invoices
   def index
     @customer_to = Customer.find_by(national_registry_code: params[:to]) if params[:to]
@@ -9,7 +9,7 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.all
     @invoices = @invoices.where(from_customer_id: @customer_from.id) if params[:from]
     @invoices = @invoices.where(to_customer_id: @customer_to.id) if params[:to]
-    
+
     render json: @invoices, include: [:from_customer, :to_customer]
   end
 
