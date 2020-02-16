@@ -13,10 +13,6 @@ class Customer < ApplicationRecord
   def self.from_token_request request
     national_registry_code = request.params["auth"] && request.params["auth"]["national_registry_code"]
     customer = self.find_by national_registry_code: national_registry_code
-    puts "************************"
-    puts request.params
-    puts customer.inspect
-    puts "==================="
     customer
   end
 
