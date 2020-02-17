@@ -18,7 +18,8 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      render json: @customer, status: :created, location: @customer
+      Wallet.create(customer: @customer)
+      render json: @customer, include: [:wallet], status: :created, location: @customer
     else
       render json: { errors: @customer.errors }, status: :unprocessable_entity
     end

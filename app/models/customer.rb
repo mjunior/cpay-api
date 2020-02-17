@@ -2,6 +2,7 @@ class Customer < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
   validates :national_registry_code, presence: true, uniqueness: true
+  has_one :wallet
 
   enum registry_type: {
     CPF: 0,
@@ -34,6 +35,10 @@ class Customer < ApplicationRecord
     unless CNPJ.valid?(self.national_registry_code)
       errors.add(:national_registry_code, 'CNPJ Invalido')
     end   
+  end
+
+  def balance
+    self.wallet?.balance
   end
 
 end
